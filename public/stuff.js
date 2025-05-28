@@ -1,7 +1,7 @@
 const scramjet = new ScramjetController({
   prefix: "/service/scramjet/",
   files: {
-    wasm: "/scramjet/scramjet.wasm.js",
+    wasm: "/scramjet/scramjet.wasm.wasm",
     worker: "/scramjet/scramjet.worker.js",
     client: "/scramjet/scramjet.client.js",
     shared: "/scramjet/scramjet.shared.js",
@@ -9,7 +9,16 @@ const scramjet = new ScramjetController({
   },
 });
 
-scramjet.init("./sw.js");
+try {
+  if (navigator.serviceWorker) {
+    scramjet.init();
+    navigator.serviceWorker.register("./sw.js");
+  } else {
+    console.warn("Service workers not supported");
+  }
+} catch (e) {
+  console.error("Failed to initialize Scramjet:", e);
+}
 
 const connection = new BareMux.BareMuxConnection("/baremux/worker.js");
 const wispUrl =
@@ -24,7 +33,7 @@ async function setTransport(transportsel) {
       await connection.setTransport("/epoxy/index.mjs", [{ wisp: wispUrl }]);
       break;
     case "libcurl":
-      await connection.setTransport("/libcurl/index.mjs", [{ wisp: wispUrl }]);
+      await connection.setTransport("/libcurl/index.mjs", [{ websocket: wispUrl }]);
       break;
     default:
       await connection.setTransport("/bareasmodule/index.mjs", [bareUrl]);
