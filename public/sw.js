@@ -1,10 +1,10 @@
 importScripts('/uv/uv.bundle.js')
 importScripts('/uv/uv.config.js')
 importScripts('/uv/uv.sw.js')
-importScripts('/scramjet/scramjet.shared.js')
-importScripts('/scramjet/scramjet.worker.js')
+importScripts("/scram/scramjet.all.js");
 
 const uv = new UVServiceWorker()
+const { ScramjetServiceWorker } = $scramjetLoadWorker();
 const scramjet = new ScramjetServiceWorker()
 
 async function handleRequest(event) {

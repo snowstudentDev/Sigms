@@ -1,12 +1,13 @@
+const { ScramjetController } = $scramjetLoadController();
+
 const scramjet = new ScramjetController({
-  prefix: "/service/scramjet/",
-  files: {
-    wasm: "/scramjet/scramjet.wasm.wasm",
-    worker: "/scramjet/scramjet.worker.js",
-    client: "/scramjet/scramjet.client.js",
-    shared: "/scramjet/scramjet.shared.js",
-    sync: "/scramjet/scramjet.sync.js",
-  },
+
+	files: {
+		wasm: "/scram/scramjet.wasm.wasm",
+		all: "/scram/scramjet.all.js",
+		sync: "/scram/scramjet.sync.js",
+	},
+
 });
 
 try {
@@ -43,7 +44,6 @@ async function setTransport(transportsel) {
 function search(input) {
   let template = "https://www.google.com/search?q=%s";
   try {
-    // input is a valid URL:
     return new URL(input).toString();
   } catch (err) {}
 

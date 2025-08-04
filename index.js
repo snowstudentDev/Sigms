@@ -21,8 +21,7 @@ app.use("/epoxy/", express.static(epoxyPath));
 app.use("/libcurl/", express.static(libcurlPath));
 app.use("/bareasmodule/", express.static(bareModulePath));
 app.use("/baremux/", express.static(baremuxPath));
-app.use("/scramjet/", express.static("scramjet"));
-// app.use("/scram/", express.static(scramjetPath));
+app.use("/scram/", express.static("scramjet"));
 
 const server = createServer();
 
