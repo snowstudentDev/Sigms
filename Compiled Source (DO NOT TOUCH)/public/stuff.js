@@ -57,12 +57,41 @@ function search(input) {
 
 setTransport("epoxy");
 
-document.getElementById("idk").addEventListener("submit", async (event) => {
-  event.preventDefault();
-  let fixedurl = search(document.getElementById("url").value);
-  let url;
-  if (document.getElementById("proxysel").value === "uv") {
-    url = __uv$config.prefix + __uv$config.encodeUrl(fixedurl);
-  } else url = scramjet.encodeUrl(fixedurl);
-  document.getElementById("iframe").src = url;
+window.addEventListener("DOMContentLoaded", async () => {
+  await scramjet.init();
+
+  // Create button
+  const button = document.createElement("button");
+  button.textContent = "Launch Clash";
+  button.style.position = "absolute";
+  button.style.top = "50%";
+  button.style.left = "50%";
+  button.style.transform = "translate(-50%, -50%)";
+  button.style.padding = "12px 24px";
+  button.style.fontSize = "18px";
+  button.style.background = "white";
+  button.style.color = "black";
+  button.style.border = "2px solid black";
+  button.style.cursor = "pointer";
+
+  document.body.appendChild(button);
+
+  // On click → remove button, create iframe
+  button.addEventListener("click", () => {
+    button.remove();
+
+    const iframe = document.createElement("iframe");
+    
+    iframe.id = "iframe";
+    iframe.style.width = "100%";
+    iframe.style.height = "100vh";
+    iframe.style.border = "none";
+    
+    document.body.appendChild(iframe);
+
+    // Replace with Clash’s URL
+    let fixedurl = search("https://web.cloudmoonapp.com/");
+    let url = scramjet.encodeUrl(fixedurl);
+    iframe.src = url;
+  });
 });

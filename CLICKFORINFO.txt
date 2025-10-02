@@ -1,0 +1,2 @@
+CLICK INTO THE TERMINAL AND THEN TYPE ./RunClash.sh
+then click onto the localhost 3000 thing and it will work
